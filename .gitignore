@@ -1,1 +1,4 @@
 node_modules/
+/sass/style.css
+/sass/tyle.css.map
+.idea/
