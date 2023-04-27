@@ -130,4 +130,4 @@ export const keyboardKeysRu = {
   ArrowRight: ">",
 };
 
-export default { keyboardKeysRu, keyboardKeysEng };
+// export default { keyboardKeysRu, keyboardKeysEng };
