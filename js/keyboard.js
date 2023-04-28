@@ -82,6 +82,65 @@ class VirtualKeyboard extends Output {
         });
       }
 
+      if (key === "CapsLock") {
+        btn.addEventListener("click", () => {
+          btn.classList.toggle("keyboard_item_active");
+          this.capsLock();
+        });
+        // btn.addEventListener('keydown', () => {
+        //   console.log('hello');
+        //   btn.classList.toggle('keyboard_item_active');
+        //   this.capsLock();
+        // });
+      }
+      if (key === "Space") {
+        btn.addEventListener("click", () => {
+          this.setValue(" ");
+          // this.content += ' ';
+        });
+      }
+      if (key === "Enter") {
+        btn.addEventListener("click", () => {
+          this.enter();
+          // this.content += ' ';
+        });
+      }
+      if (key === "Tab") {
+        btn.addEventListener("click", () => {
+          // this.content += '  ';
+          this.setValue("  ");
+        });
+      }
+      if (key === "Backspace") {
+        btn.addEventListener("click", () => {
+          console.log("ky");
+          this.backSpace();
+        });
+      }
+      if (key === "Delete") {
+        btn.addEventListener("click", () => {
+          console.log("del");
+        });
+      }
+      if (key === "ShiftLeft") {
+        btn.addEventListener("mousedown", () => {
+          console.log("shift");
+        });
+      }
+
+      btn.addEventListener("mousedown", (e) => {
+        if (btn.innerText !== "CapsLock") {
+          e.preventDefault();
+          btn.classList.add("keyboard_item_active");
+        }
+      });
+
+      btn.addEventListener("mouseup", () => {
+        if (btn.innerText !== "CapsLock") {
+          btn.classList.remove("keyboard_item_active");
+        }
+      });
+
       switch (key) {
         case "Backspace":
           const btnBackspaceImg = document.createElement("img");
@@ -111,6 +170,40 @@ class VirtualKeyboard extends Output {
           break;
       }
       section.append(btn);
+    });
+
+    const keyListener = (e) => {
+      // document.activeElement.blur();
+      const keys = document.querySelectorAll(".keyboard_item");
+      for (let i = 0; i < keys.length; i += 1) {
+        if (e.code !== "CapsLock") {
+          if (
+            keysLang[e.code] === keys[i].textContent ||
+            keysLang[e.code] === keys[i].textContent.toUpperCase()
+            // TODO
+            // e.key === keys[i].textContent.toUpperCase()
+            // || e.key === keys[i].textContent.toUpperCase
+            // || e.key === keys[i].textContent
+          ) {
+            keys[i].classList.add("keyboard_item_active");
+          }
+        }
+      }
+
+      // window.removeEventListener('keydown', keyListener);
+    };
+
+    window.addEventListener("keydown", keyListener);
+
+    window.addEventListener("keyup", (e) => {
+      const keys = document.querySelectorAll(".keyboard_item");
+      for (let i = 0; i < keys.length; i += 1) {
+        if (e.code !== "CapsLock") {
+          setTimeout(() => {
+            keys[i].classList.remove("keyboard_item_active");
+          }, 50);
+        }
+      }
     });
 
     return section;
