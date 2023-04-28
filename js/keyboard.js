@@ -307,6 +307,48 @@ class VirtualKeyboard extends Output {
     this.content = this.content.slice(0, -1);
     this.element.value = this.content;
   }
+
+  delete() {
+    this.element.focus();
+    if (this.element.selectionStart === 0 && this.element.selectionEnd === 0) {
+      const str = this.content.slice(1, this.content.length);
+      this.content = str;
+      this.element.value = this.content;
+      this.element.selectionStart = 0;
+      this.element.selectionEnd = 0;
+      return;
+    }
+    if (
+      this.element.selectionStart !== 0 &&
+      this.element.selectionStart !== this.content.length &&
+      this.element.selectionStart === this.element.selectionEnd
+    ) {
+      const start = this.content.slice(0, this.element.selectionStart);
+      const end = this.content.slice(
+        this.element.selectionStart + 1,
+        this.content.length
+      );
+      const caret = this.element.selectionStart;
+      const res = start + end;
+      console.log(start);
+      console.log(end);
+      this.content = res;
+
+      this.element.value = this.content;
+      console.log("center");
+      this.element.selectionStart = caret;
+      this.element.selectionEnd = caret;
+      return;
+    }
+    if (
+      this.element.selectionStart === 0 &&
+      this.element.selectionEnd === this.content.length
+    ) {
+      this.content = "";
+      this.element.value = this.content;
+      console.log("full");
+    }
+  }
 }
 
 const keyboard = new VirtualKeyboard();
