@@ -1,5 +1,8 @@
-import { keyboardKeysEng, keyboardKeysEngShift, keyboardKeysRu, keyboardKeysRuShift, } from './keys.js';
-import Output from './Output.js';
+import {
+  keyboardKeysEng, keyboardKeysEngShift, keyboardKeysRu, keyboardKeysRuShift,
+} from './keys.js';
+
+import Output from './output.js';
 
 class VirtualKeyboard extends Output {
   constructor() {
@@ -15,8 +18,8 @@ class VirtualKeyboard extends Output {
   }
 
   addEventListeners() {
-    window.addEventListener("keydown", (e) => {
-      if ((e.code === "ShiftLeft" || e.code === "ShiftRight") && !e.altKey) {
+    window.addEventListener('keydown', (e) => {
+      if ((e.code === 'ShiftLeft' || e.code === 'ShiftRight') && !e.altKey) {
         if (this.shiftState) {
           return;
         }
@@ -24,11 +27,11 @@ class VirtualKeyboard extends Output {
       }
       e.preventDefault();
       const keyCaps = document.querySelector(
-        ".keyboard_item.keyboard_item_caps"
+        '.keyboard_item.keyboard_item_caps',
       );
 
       if (this.notLetters.indexOf(e.code) === -1) {
-        if (keyCaps.classList.contains("caps-on") || this.shiftState) {
+        if (keyCaps.classList.contains('caps-on') || this.shiftState) {
           this.setValue(this.keyslang[e.code].toUpperCase());
         } else {
           this.setValue(this.keyslang[e.code].toLowerCase());
@@ -37,29 +40,29 @@ class VirtualKeyboard extends Output {
     });
 
     const keyListener = (e) => {
-      const keys = document.querySelectorAll(".keyboard_item");
+      const keys = document.querySelectorAll('.keyboard_item');
       for (let i = 0; i < keys.length; i += 1) {
-        if (e.code !== "CapsLock") {
+        if (e.code !== 'CapsLock') {
           if (
             e.code === keys[i].id
           ) {
-            keys[i].classList.add("keyboard_item_active");
+            keys[i].classList.add('keyboard_item_active');
           }
         }
       }
     };
 
-    window.addEventListener("keydown", keyListener);
+    window.addEventListener('keydown', keyListener);
 
-    window.addEventListener("keyup", (e) => {
-      const keys = document.querySelectorAll(".keyboard_item");
+    window.addEventListener('keyup', (e) => {
+      const keys = document.querySelectorAll('.keyboard_item');
       for (let i = 0; i < keys.length; i += 1) {
-        if (e.code !== "CapsLock") {
+        if (e.code !== 'CapsLock') {
           if (
             e.code === keys[i].id
           ) {
             setTimeout(() => {
-              keys[i].classList.remove("keyboard_item_active");
+              keys[i].classList.remove('keyboard_item_active');
             }, 50);
           }
         }
@@ -67,46 +70,45 @@ class VirtualKeyboard extends Output {
     });
 
     const shiftKeyUp = (e) => {
-      if (e.code === "ShiftLeft" || e.code === "ShiftRight") {
+      if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
         this.shiftState = false;
         this.main.remove();
         this.getKeyboard();
       }
     };
-    window.addEventListener("keyup", shiftKeyUp);
+    window.addEventListener('keyup', shiftKeyUp);
 
-    window.addEventListener("keydown", (e) => {
-      if (e.code === "Tab") {
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Tab') {
         e.preventDefault();
-        this.setValue("  ");
+        this.setValue('  ');
       }
-      if (e.code === "Space") {
+      if (e.code === 'Space') {
         e.preventDefault();
-        this.setValue(" ");
+        this.setValue(' ');
       }
     });
 
-    window.addEventListener("keydown", (e) => {
-      if (e.code === "CapsLock") {
-        const capsBtn = document.querySelector(".keyboard_item_caps");
-        capsBtn.classList.toggle("keyboard_item_active");
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'CapsLock') {
+        const capsBtn = document.querySelector('.keyboard_item_caps');
+        capsBtn.classList.toggle('keyboard_item_active');
         this.capsLock();
         return;
       }
-      if (e.code === "Backspace") {
+      if (e.code === 'Backspace') {
         this.backSpace();
       }
-      if (e.code === "Enter") {
+      if (e.code === 'Enter') {
         this.enter();
       }
-      if (e.code === "Delete") {
+      if (e.code === 'Delete') {
         this.delete();
       }
     });
   }
 
   getKeyboard(keyboardKeysLangCall) {
-
     let keyboardKeysLang = keyboardKeysLangCall;
 
     if (!localStorage.getItem('language')) {
@@ -174,21 +176,21 @@ class VirtualKeyboard extends Output {
   }
 
   getKeyboardItems(keysLang) {
-    const section = document.createElement("section");
+    const section = document.createElement('section');
     const notLetters = [
-      "CapsLock",
-      "Enter",
-      "ShiftLeft",
-      "ShiftRight",
-      "ControlLeft",
-      "Space",
-      "AltRight",
-      "AltLeft",
-      "ControlRight",
-      "Tab",
-      "AltLeft",
-      "Backspace",
-      "Delete",
+      'CapsLock',
+      'Enter',
+      'ShiftLeft',
+      'ShiftRight',
+      'ControlLeft',
+      'Space',
+      'AltRight',
+      'AltLeft',
+      'ControlRight',
+      'Tab',
+      'AltLeft',
+      'Backspace',
+      'Delete',
     ];
 
     this.notLetters = notLetters;
@@ -267,42 +269,42 @@ class VirtualKeyboard extends Output {
         });
       }
 
-      btn.addEventListener("mousedown", (e) => {
-        if (btn.innerText !== "CapsLock") {
+      btn.addEventListener('mousedown', (e) => {
+        if (btn.innerText !== 'CapsLock') {
           e.preventDefault();
-          btn.classList.add("keyboard_item_active");
+          btn.classList.add('keyboard_item_active');
         }
       });
 
-      btn.addEventListener("mouseup", () => {
-        if (btn.innerText !== "CapsLock") {
-          btn.classList.remove("keyboard_item_active");
+      btn.addEventListener('mouseup', () => {
+        if (btn.innerText !== 'CapsLock') {
+          btn.classList.remove('keyboard_item_active');
         }
       });
 
       const btnBackspaceImg = document.createElement('img');
       switch (key) {
-        case "Backspace":
+        case 'Backspace':
           btnBackspaceImg.src = keysLang[key];
-          btnBackspaceImg.classList.add("keyboard_item-image");
-          btn.innerHTML = "";
+          btnBackspaceImg.classList.add('keyboard_item-image');
+          btn.innerHTML = '';
           btn.appendChild(btnBackspaceImg);
           break;
 
-        case "CapsLock":
-          btn.classList.add("keyboard_item_caps");
+        case 'CapsLock':
+          btn.classList.add('keyboard_item_caps');
           break;
-        case "Enter":
-          btn.classList.add("keyboard_item_enter");
+        case 'Enter':
+          btn.classList.add('keyboard_item_enter');
           break;
-        case "ShiftLeft":
-          btn.classList.add("keyboard_item_Shift");
+        case 'ShiftLeft':
+          btn.classList.add('keyboard_item_Shift');
           break;
-        case "ShiftRight":
-          btn.classList.add("keyboard_item_ShiftRgt");
+        case 'ShiftRight':
+          btn.classList.add('keyboard_item_ShiftRgt');
           break;
-        case "Space":
-          btn.classList.add("keyboard_item_large-space");
+        case 'Space':
+          btn.classList.add('keyboard_item_large-space');
           break;
 
         default:
@@ -490,6 +492,6 @@ window.addEventListener('keydown', (event) => {
   keyboard.setLanguage(event);
 });
 
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener('DOMContentLoaded', () => {
   keyboard.getKeyboard(keyboardKeysEng);
 });
