@@ -45,7 +45,6 @@ body {
   height: 100%;
   line-height: 1;
   font-size: 14px;
-  background: #fafafa;
   font-family: Monaco, sans-serif;
   font-weight: 500;
   background: #b6c2bf;
@@ -63,7 +62,6 @@ body {
   margin: 0 auto;
 }
 
-/* -------HEADER------------- */
 .header {
   background: #b6c2bf;
   display: flex;
@@ -77,6 +75,7 @@ body {
 }
 
 .text .text_area {
+  padding: 10px;
   width: 100%;
   font-size: 20px;
   margin-bottom: 50px;
@@ -115,6 +114,10 @@ body {
   padding: 0;
   transition: all 0.5s;
 }
+.keyboard .keyboard_item-image {
+  width: 30px;
+  height: 30px;
+}
 .keyboard .keyboard_item_uppercase {
   text-transform: uppercase;
 }
@@ -152,6 +155,15 @@ body {
   background: rgb(223, 171, 1);
   transition: all 0.5s;
   border-radius: 45%;
+}
+
+.keyboard_info {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
 }
 
 /*# sourceMappingURL=style.css.map */
